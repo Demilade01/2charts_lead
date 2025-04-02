@@ -1,0 +1,77 @@
+.ad-spend {
+    &__main {
+        width: 100%;
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+
+    &__item {
+        text-align: center;
+    }
+
+    &__item__label {
+        display: block;
+        text-align: left;
+    }
+
+    &__item__value {
+        display: block;
+        font-size: 1.5rem;
+        cursor: help;
+    }
+
+    &__item__target {
+        display: block;
+        cursor: help;
+    }
+    
+    &__item__divider {
+        display: block;
+        height: 8px;
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 0.75rem;
+        margin-top: 0.25rem;
+    }
+
+    &__total {
+        text-align: center;
+        margin-left: 1.5rem;
+        position: relative;
+      
+        &::before {
+          content: "";
+          position: absolute;
+          width: 1px;
+          background-color: #9ca3af;
+          height: 80%; 
+          left: -0.75rem;
+          bottom: 0;
+        }
+      }
+
+      &__total__label {
+          display: block;
+          font-weight: bold;
+          text-align: left;
+          cursor: help;
+      }
+
+      &__total__value {
+          display: block;
+          font-size: 1.5rem;
+          cursor: help;
+          margin-top: 20px;
+      }
+  
+      &__total__target {
+          display: block;
+          cursor: help;
+      }
+}
