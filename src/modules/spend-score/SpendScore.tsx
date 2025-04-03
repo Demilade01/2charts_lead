@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import  { useEffect, useRef, useState } from 'react';
 import ReactDOMServer from "react-dom/server";
 import Highcharts from 'highcharts';
 import 'highcharts/highcharts-more';
@@ -39,7 +39,7 @@ const formatLabelToHtml = ({ valueDiff, targetValue }: { valueDiff: number; targ
 };
 
 
-const normalizeRangeValue = (min: number, max: number, value: number): number => 
+const normalizeRangeValue = (min: number, max: number, value: number): number =>
     (value - min) / (max - min);
 
 interface ChartProps {
@@ -147,7 +147,7 @@ const SemiDonutChart = ({target: targetValue, value, prevValue, min, max}: Chart
                 }
               }]
         };
-        
+
         // @ts-ignore
         const chart = Highcharts.chart(chartRef.current as HTMLDivElement, gaugeOptions)
         setChartSpeed(chart);
