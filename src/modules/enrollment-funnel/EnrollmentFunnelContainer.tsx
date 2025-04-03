@@ -11,44 +11,47 @@ interface ProcessedEnrollmentData {
   from: string;
   to: string;
   weight: number;
+  percentage?: number;
 }
 
 const EnrollmentFunnelContainer: React.FC = () => {
   const [processedData, setProcessedData] = useState<ProcessedEnrollmentData[]>([]);
 
-  // This would typically come from an API or other data source
   const mockData: RawEnrollmentData[] = [
-    { stage: 'Discovery/Dev.', leads: 1000, nextStage: 'App. Started' },
-    { stage: 'App. Started', leads: 800, nextStage: 'App. Submitted' },
-    { stage: 'App. Submitted', leads: 600, nextStage: 'App. Complete' },
-    { stage: 'App. Complete', leads: 400, nextStage: 'Admission Offered' },
-    { stage: 'Admission Offered', leads: 300, nextStage: 'Admission Accepted' },
-    { stage: 'Admission Accepted', leads: 200, nextStage: 'Enrolled' },
-    { stage: 'Enrolled', leads: 150, nextStage: 'Conversion and Loss' }
+    { stage: 'Discovery/Dev.', leads: 150, nextStage: 'App. Started' },
+    { stage: 'App. Started', leads: 87, nextStage: 'App. Submitted' },
+    { stage: 'App. Submitted', leads: 82, nextStage: 'App. Complete' },
+    { stage: 'App. Complete', leads: 71, nextStage: 'Admission Offered' },
+    { stage: 'Admission Offered', leads: 63, nextStage: 'Admission Accepted' },
+    { stage: 'Admission Accepted', leads: 61, nextStage: 'Enrolled' },
+    { stage: 'Enrolled', leads: 56, nextStage: '' },
   ];
 
   useEffect(() => {
     const processData = (rawData: RawEnrollmentData[]): ProcessedEnrollmentData[] => {
       const processed: ProcessedEnrollmentData[] = [];
 
-      rawData.forEach((item, index) => {
-        // Add the main flow
-        processed.push({
-          from: item.stage,
-          to: item.nextStage,
-          weight: item.leads
-        });
-
-        // Add loss data if not the last stage
-        if (index < rawData.length - 1) {
-          const nextItem = rawData[index + 1];
-          const loss = item.leads - nextItem.leads;
-          if (loss > 0) {
+      rawData.forEach((item) => {
+        if (item.nextStage) {
+          const nextItem = rawData.find(d => d.stage === item.nextStage);
+          if (nextItem) {
+            const percentage = +((nextItem.leads / item.leads) * 100).toFixed(1);
             processed.push({
               from: item.stage,
-              to: 'Loss',
-              weight: loss
+              to: item.nextStage,
+              weight: nextItem.leads,
+              percentage: percentage
             });
+
+            // Calculate loss
+            const loss = item.leads - nextItem.leads;
+            if (loss > 0) {
+              processed.push({
+                from: item.stage,
+                to: 'Conversion and Loss',
+                weight: loss
+              });
+            }
           }
         }
       });
