@@ -80,7 +80,15 @@ const getChartOptions = (data: ProcessedEnrollmentData[]): Highcharts.Options =>
       sankey: {
         nodePadding: 40,
         clip: false,
-        curveFactor: 0.33
+        curveFactor: -0.1,
+        dataLabels: {
+          enabled: true,
+          format: '{point.name}',
+          style: {
+            fontWeight: 'bold',
+            textOutline: 'none'
+          }
+        },
       }
     },
     series: [{
@@ -89,14 +97,14 @@ const getChartOptions = (data: ProcessedEnrollmentData[]): Highcharts.Options =>
       keys: ['from', 'to', 'weight', 'percentage'],
       data: data,
       nodes: [
-        { id: 'Discovery/Dev.', column: 0, color: '#57b9b3' },
-        { id: 'App. Started', column: 1, color: '#57b9b3' },
-        { id: 'App. Submitted', column: 2, color: '#57b9b3' },
-        { id: 'App. Complete', column: 3, color: '#57b9b3' },
-        { id: 'Admission Offered', column: 4, color: '#57b9b3' },
-        { id: 'Admission Accepted', column: 5, color: '#57b9b3' },
-        { id: 'Enrolled', column: 6, color: '#57b9b3' },
-        { id: 'Lost', column: 7, color: '#cccccc',}
+        { id: 'Discovery/Dev.', column: 0, color: '#57b9b3',},
+        { id: 'App. Started', column: 1, color: '#57b9b3', offsetVertical: -90, },
+        { id: 'App. Submitted', column: 2, color: '#57b9b3', offsetVertical: -90, },
+        { id: 'App. Complete', column: 3, color: '#57b9b3', offsetVertical: -90, },
+        { id: 'Admission Offered', column: 4, color: '#57b9b3', offsetVertical: -90, },
+        { id: 'Admission Accepted', column: 5, color: '#57b9b3', offsetVertical: -90, },
+        { id: 'Enrolled', column: 6, color: '#57b9b3', offsetVertical: -90, },
+        { id: 'Lost', column: 7, color: '#cccccc', offsetVertical: 250}
       ],
       dataLabels: {
         enabled: true,
