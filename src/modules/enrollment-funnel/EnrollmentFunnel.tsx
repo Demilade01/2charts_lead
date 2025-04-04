@@ -57,7 +57,7 @@ const getChartOptions = (data: ProcessedEnrollmentData[]): Highcharts.Options =>
   return {
     chart: {
       type: 'sankey',
-      height: '400px',
+      height: '600px',
       spacingBottom: 100
     },
     title: {
