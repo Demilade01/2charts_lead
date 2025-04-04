@@ -99,12 +99,12 @@ const getChartOptions = (data: ProcessedEnrollmentData[]): Highcharts.Options =>
       nodes: [
         { id: 'Discovery/Dev.', column: 0, color: '#57b9b3',},
         { id: 'App. Started', column: 1, color: '#57b9b3', offsetVertical: -90, },
-        { id: 'App. Submitted', column: 2, color: '#57b9b3', offsetVertical: -90, },
-        { id: 'App. Complete', column: 3, color: '#57b9b3', offsetVertical: -90, },
-        { id: 'Admission Offered', column: 4, color: '#57b9b3', offsetVertical: -90, },
-        { id: 'Admission Accepted', column: 5, color: '#57b9b3', offsetVertical: -90, },
-        { id: 'Enrolled', column: 6, color: '#57b9b3', offsetVertical: -90, },
-        { id: 'Lost', column: 7, color: '#cccccc', offsetVertical: 250}
+        { id: 'App. Submitted', column: 2, color: '#57b9b3', offsetVertical: -96, },
+        { id: 'App. Complete', column: 3, color: '#57b9b3', offsetVertical: -110, },
+        { id: 'Admission Offered', column: 4, color: '#57b9b3', offsetVertical: -120, },
+        { id: 'Admission Accepted', column: 5, color: '#57b9b3', offsetVertical: -125, },
+        { id: 'Enrolled', column: 6, color: '#57b9b3', offsetVertical: -130, },
+        { id: 'Lost', column: 7, color: '#cccccc', offsetVertical: 180}
       ],
       dataLabels: {
         enabled: true,
