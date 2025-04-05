@@ -20,10 +20,6 @@ const mockStages = [
   { stage: 'Discovery/Dev.', leads: 156, conversionRate: '58.3%' },
   { stage: 'App. Started', leads: 91, conversionRate: '94.5%' },
   { stage: 'App. Submitted', leads: 86, conversionRate: '87.2%' },
-  { stage: 'App. Complete', leads: 75, conversionRate: '89.3%' },
-  { stage: 'Admission Offered', leads: 67, conversionRate: '97%' },
-  { stage: 'Admission Accepted', leads: 65, conversionRate: '92.3%' },
-  { stage: 'Enrolled', leads: 60 }
 ];
 
 const generateChartData = (): ProcessedEnrollmentData[] => {
@@ -78,9 +74,9 @@ const getChartOptions = (data: ProcessedEnrollmentData[]): Highcharts.Options =>
     },
     plotOptions: {
       sankey: {
-        nodePadding: 40,
+        nodePadding: 20,
         clip: false,
-        curveFactor: -0.1,
+        curveFactor: 0.5,
         dataLabels: {
           enabled: true,
           format: '{point.name}',
@@ -99,12 +95,8 @@ const getChartOptions = (data: ProcessedEnrollmentData[]): Highcharts.Options =>
       nodes: [
         { id: 'Discovery/Dev.', column: 0, color: '#57b9b3',},
         { id: 'App. Started', column: 1, color: '#57b9b3', offsetVertical: -90, },
-        { id: 'App. Submitted', column: 2, color: '#57b9b3', offsetVertical: -96, },
-        { id: 'App. Complete', column: 3, color: '#57b9b3', offsetVertical: -110, },
-        { id: 'Admission Offered', column: 4, color: '#57b9b3', offsetVertical: -120, },
-        { id: 'Admission Accepted', column: 5, color: '#57b9b3', offsetVertical: -125, },
-        { id: 'Enrolled', column: 6, color: '#57b9b3', offsetVertical: -130, },
-        { id: 'Lost', column: 7, color: '#cccccc', offsetVertical: 180}
+        { id: 'App. Submitted', column: 2, color: '#57b9b3', offsetVertical: -200, },
+        { id: 'Lost', column: 2, color: '#cccccc', offsetVertical: 340}
       ],
       dataLabels: {
         enabled: true,
@@ -114,7 +106,7 @@ const getChartOptions = (data: ProcessedEnrollmentData[]): Highcharts.Options =>
           textOutline: 'none'
         }
       },
-      nodeWidth: 20
+      nodeWidth: 10,
     }]
   };
 };
