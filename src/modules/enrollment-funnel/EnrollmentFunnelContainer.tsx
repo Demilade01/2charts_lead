@@ -3,7 +3,7 @@ import EnrollmentFunnel from './EnrollmentFunnel';
 
 const EnrollmentFunnelContainer: React.FC = () => {
   return (
-    <div className="w-full">
+    <div>
       <EnrollmentFunnel />
     </div>
   );
