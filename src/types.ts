@@ -16,6 +16,7 @@ export interface EnrollmentFunnelProps {
 }
 
 export interface LeadFunnelData {
+  map: any;
   title: string;
   description: string;
   stages: FunnelStage[];
@@ -40,5 +41,6 @@ export const leadFunnelData: LeadFunnelData = {
   benchmarks: {
     local: 94,
     implied: 60
-  }
+  },
+  map: undefined
 };
