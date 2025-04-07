@@ -3,7 +3,7 @@ import EnrollmentFunnel from './EnrollmentFunnel';
 
 const EnrollmentFunnelContainer: React.FC = () => {
   return (
-    <div>
+    <div className='mb-20 reduce-bottom'>
       <EnrollmentFunnel />
     </div>
   );
