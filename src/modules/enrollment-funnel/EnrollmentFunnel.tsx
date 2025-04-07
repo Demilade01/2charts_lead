@@ -1,131 +1,151 @@
-// Final corrected version: Clean horizontal Sankey with Lost in column 7, no offsetVertical
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Highcharts from 'highcharts';
+import Sankey from 'highcharts/modules/sankey';
 import HighchartsReact from 'highcharts-react-official';
-import sankey from 'highcharts/modules/sankey';
 
 if (typeof Highcharts === 'function') {
-  sankey(Highcharts);
+  Sankey(Highcharts);
 }
 
-interface ProcessedEnrollmentData {
-  from: string;
-  to: string;
-  weight: number;
-  percentage?: string;
-}
+const EnrollmentFunnel: React.FC = () => {
+  // Static data
+  const funnelData = [
+    { from: 'Discovery/Dev.', to: 'App. Started', weight: 9 },
+    { from: 'App. Started', to: 'App. Submitted', weight: 8 },
+    { from: 'App. Submitted', to: 'App. Complete', weight: 7 },
+    { from: 'App. Complete', to: 'Admission Offered', weight: 6 },
+    { from: 'Admission Offered', to: 'Admission Accepted', weight: 6 },
+    { from: 'Admission Accepted', to: 'Enrolled', weight: 4 },
 
-const mockStages = [
-  { stage: 'Discovery/Dev.', leads: 156, conversionRate: '58.3%' },
-  { stage: 'App. Started', leads: 91, conversionRate: '94.5%' },
-  { stage: 'App. Submitted', leads: 86, conversionRate: '87.2%' },
-];
+    { from: 'Admission Accepted', to: 'Lost', weight: 3 },
+    { from: 'Admission Offered', to: 'Lost', weight: 1 },
+    { from: 'App. Complete', to: 'Lost', weight: 2 },
+    { from: 'App. Submitted', to: 'Lost', weight: 2 },
+    { from: 'App. Started', to: 'Lost', weight: 2 },
+    { from: 'Discovery/Dev.', to: 'Lost', weight: 7 },
+  ];
 
-const generateChartData = (): ProcessedEnrollmentData[] => {
-  const processed: ProcessedEnrollmentData[] = [];
+  // Calculate total loss
+  const totalLost = funnelData
+    .filter((d) => d.to === 'Lost')
+    .reduce((sum, d) => sum + d.weight, 0);
 
-  for (let i = 0; i < mockStages.length - 1; i++) {
-    const current = mockStages[i];
-    const next = mockStages[i + 1];
+  // Simulated gradient progression colors
+  const progressionColors = [
+    '#c2edea', // Discovery
+    '#c2edea', // App Started
+    '#c2edea', // App Submitted
+    '#c2edea', // App Complete
+    '#c2edea', // Admission Offered
+    '#c2edea', // Admission Accepted
+  ];
 
-    processed.push({
-      from: current.stage,
-      to: next.stage,
-      weight: next.leads,
-      percentage: current.conversionRate
-    });
+  // Tooltip formatter function
+  const tooltipFormatter = function (this: any) {
+    const from = this.point.fromNode.name;
+    const to = this.point.toNode.name;
+    const weight = this.point.weight;
 
-    const loss = current.leads - next.leads;
-    if (loss > 0) {
-      processed.push({
-        from: current.stage,
-        to: 'Lost',
-        weight: loss
-      });
+    if (to === 'Lost') {
+      return `<b>${weight} leads</b> dropped out at <b>${from}</b>`;
     }
-  }
 
-  return processed;
-};
+    return `<b>${weight} leads</b> progressed from <b>${from}</b> to <b>${to}</b>`;
+  };
 
-const getChartOptions = (data: ProcessedEnrollmentData[]): Highcharts.Options => {
-  return {
+  // Build chart options
+  const options: Highcharts.Options = {
     chart: {
       type: 'sankey',
       height: '600px',
-      spacingBottom: 100
     },
     title: {
-      text: 'Lead Funnel & Performance',
-      align: 'left'
+      text: 'Lead Funnel & Performance'
     },
     subtitle: {
-      text: 'Qualified Leads Comparison – Spring ’25'
+      text: 'Qualified Leads Conversion for Spring ’25'
     },
     tooltip: {
-      pointFormatter: function () {
-        const p = this as any;
-        if (p.to === 'Lost') {
-          return `<b>Loss</b><br/>${p.weight} leads lost`;
-        }
-        return `<b>${p.from} → ${p.to}</b><br/>${p.weight} leads${p.percentage ? ` (${p.percentage})` : ''}`;
+      formatter: tooltipFormatter
+    },
+    accessibility: {
+      point: {
+        valueDescriptionFormat: '{index}. {point.from} to {point.to}, {point.weight}.'
       }
     },
     plotOptions: {
-      sankey: {
-        nodePadding: 20,
-        clip: false,
-        curveFactor: 0.5,
-        dataLabels: {
-          enabled: true,
-          format: '{point.name}',
-          style: {
-            fontWeight: 'bold',
-            textOutline: 'none'
+      series: {
+        point: {
+          events: {
+            click: function () {
+              const { from, to, weight } = this.options;
+              if (to === 'Lost') {
+                alert(`${weight} leads dropped at ${from}`);
+              } else {
+                alert(`${weight} leads moved from ${from} to ${to}`);
+              }
+            }
           }
-        },
+        }
       }
     },
-    series: [{
-      type: 'sankey',
-      name: 'Lead Funnel',
-      keys: ['from', 'to', 'weight', 'percentage'],
-      data: data,
-      nodes: [
-        { id: 'Discovery/Dev.', column: 0, color: '#57b9b3',},
-        { id: 'App. Started', column: 1, color: '#57b9b3', offsetVertical: -90, },
-        { id: 'App. Submitted', column: 2, color: '#57b9b3', offsetVertical: -200, },
-        { id: 'Lost', column: 2, color: '#cccccc', offsetVertical: 340}
-      ],
-      dataLabels: {
-        enabled: true,
-        format: '{point.name}',
-        style: {
-          fontWeight: 'bold',
-          textOutline: 'none'
+    series: [
+      {
+        keys: ['from', 'to', 'weight'],
+        type: 'sankey',
+        name: 'Lead Funnel',
+        nodePadding: 10,
+        nodeWidth: 8,
+        colorByPoint: false,
+        nodes: [
+          { id: 'Discovery/Dev.', color: '#57b9b3', offsetVertical: 0 },
+          { id: 'App. Started', color: '#57b9b3', offsetVertical: -70 },
+          { id: 'App. Submitted', color: '#57b9b3', offsetVertical: -80 },
+          { id: 'App. Complete', color: '#57b9b3', offsetVertical: -90 },
+          { id: 'Admission Offered', color: '#57b9b3', offsetVertical: -100 },
+          { id: 'Admission Accepted', color: '#57b9b3', offsetVertical: -100 },
+          {
+            id: 'Enrolled',
+            color: '#57b9b3',
+            offsetVertical: 80,
+            dataLabels: {
+              format: 'Enrolled<br><span style="color:gray">Lost: ' + totalLost + '</span>'
+            }
+          },
+          { id: 'Lost', color: '#cccccc', offsetVertical: 130 }
+        ],
+        data: funnelData.map((item, i) => ({
+          ...item,
+          color: item.to === 'Lost' ? '#e0e0e0' : progressionColors[i] || '#57b9b3'
+        }))
+      }
+    ],
+    responsive: {
+      rules: [
+        {
+          condition: {
+            maxWidth: 768,
+          },
+          chartOptions: {
+            chart: {
+              height: '400px',
+            },
+            title: {
+              style: { fontSize: '14px' },
+            },
+            subtitle: {
+              style: { fontSize: '12px' },
+            }
+          }
         }
-      },
-      nodeWidth: 10,
-    }]
+      ]
+    }
   };
-};
-
-const EnrollmentFunnel: React.FC = () => {
-  const [chartData, setChartData] = useState<ProcessedEnrollmentData[]>([]);
-
-  useEffect(() => {
-    const data = generateChartData();
-    setChartData(data);
-  }, []);
 
   return (
-    <div className="w-full p-4 bg-white rounded-lg shadow">
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={getChartOptions(chartData)}
-      />
-    </div>
+    <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 max-w-5xl mx-auto overflow-x-auto mt-10">
+    <HighchartsReact highcharts={Highcharts} options={options} />
+  </div>
   );
 };
 
