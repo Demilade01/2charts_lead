@@ -47,6 +47,32 @@ const EnrollmentFunnel: React.FC = () => {
     chart: {
       type: 'sankey',
       height: '600px',
+      events: {
+        load() {
+          const chart = this;
+          const topLabels = [
+            { text: 'Discovery', x: 10, y: 120 },
+            { text: 'App Started', x: 145, y: 120 },
+            { text: 'App Submitted', x: 300, y: 120 },
+            { text: 'App Complete', x: 450, y: 120 },
+            { text: 'Admission Offered', x: 600, y: 120 },
+            { text: 'Admission Accepted', x: 750, y: 120 },
+            { text: 'Enrolled', x: 910, y: 120 },
+            { text: 'Lost', x: 945, y: 300 },
+          ];
+
+          topLabels.forEach(({ text, x, y }) => {
+            chart.renderer
+              .text(text, x, y)
+              .css({
+          fontSize: '13px',
+          fontWeight: 'normal',
+          color: '#333',
+              })
+              .add();
+          });
+        }
+      }
     },
     title: {
       text: 'Lead Funnel & Performance'
@@ -54,6 +80,9 @@ const EnrollmentFunnel: React.FC = () => {
     subtitle: {
       text: 'Qualified Leads Conversion for Spring ’25'
     },
+    xAxis: [{
+      visible: false,
+    }],
     tooltip: {
       formatter: tooltipFormatter
     },
