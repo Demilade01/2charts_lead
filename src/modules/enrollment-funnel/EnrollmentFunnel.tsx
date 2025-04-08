@@ -218,11 +218,17 @@ const EnrollmentFunnel: React.FC = () => {
           {
             id: 'Enrolled',
             color: '#57b9b3',
+            dataLabels: {
+              enabled: false,
+            }
           },
           {
             id: 'Lost',
             color: '#cccccc',
             offsetVertical: 180,
+            dataLabels: {
+              enabled: false,
+            }
           }
         ],
         data: funnelData.map((item, i) => ({
