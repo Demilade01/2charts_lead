@@ -151,42 +151,42 @@ const EnrollmentFunnel: React.FC = () => {
             id: 'Discovery/Dev.',
             color: '#57b9b3',
             dataLabels: {
-              format: 'Discovery/Dev.<br><span style="color:gray">58.3% </span>'
+              format: '<span style="color:gray">58.3% </span>'
             }
           },
           {
             id: 'App. Started',
             color: '#57b9b3',
             dataLabels: {
-              format: 'App. Started<br><span style="color:gray">94.5ted% </span>'
+              format: '<span style="color:gray">94.5% </span>'
             }
           },
           {
             id: 'App. Submitted',
             color: '#57b9b3',
             dataLabels: {
-              format: 'App. Submitted<br><span style="color:gray">87.2% </span>'
+              format: '<span style="color:gray">87.2% </span>'
             }
           },
           {
             id: 'App. Complete',
             color: '#57b9b3',
             dataLabels: {
-              format: 'App. Complete<br><span style="color:gray">89.3% </span>'
+              format: '<span style="color:gray">89.3% </span>'
             }
           },
           {
             id: 'Admission Offered',
             color: '#57b9b3',
             dataLabels: {
-              format: 'Admission Offered<br><span style="color:gray">97% </span>'
+              format: '<span style="color:gray">97% </span>'
             }
           },
           {
             id: 'Admission Accepted',
             color: '#57b9b3',
             dataLabels: {
-              format: 'Admission Accepted<br><span style="color:gray">92.3% </span>'
+              format: '<span style="color:gray">92.3% </span>'
             }
           },
           {
@@ -198,7 +198,7 @@ const EnrollmentFunnel: React.FC = () => {
             color: '#cccccc',
             offsetVertical: 180,
             dataLabels: {
-              format: 'Lost<br><span style="color:gray">Total Lost: ' + totalLost + '</span>'
+              format: '<span style="color:gray">Total Lost: ' + totalLost + '</span>'
             }
           }
         ],
