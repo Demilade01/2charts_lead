@@ -23,10 +23,6 @@ const EnrollmentFunnel: React.FC = () => {
     { from: 'Discovery/Dev.', to: 'Lost', weight: 7 },
   ];
 
-  const totalLost = funnelData
-    .filter((d) => d.to === 'Lost')
-    .reduce((sum, d) => sum + d.weight, 0);
-
   const progressionColors = [
     '#c2edea', '#c2edea', '#c2edea', '#c2edea', '#c2edea', '#c2edea',
   ];
@@ -151,42 +147,72 @@ const EnrollmentFunnel: React.FC = () => {
             id: 'Discovery/Dev.',
             color: '#57b9b3',
             dataLabels: {
-              format: '<span style="color:gray">58.3% </span>'
+              format: '<div style="font-size: 25px; color: #777; font-weight: 500;">58.3%</div>',
+              style: {
+                textOutline: 'none',
+              },
+              x: 50,
+              y: -60,
             }
           },
           {
             id: 'App. Started',
             color: '#57b9b3',
             dataLabels: {
-              format: '<span style="color:gray">94.5% </span>'
+              format: '<div style="font-size: 25px; color: #777; font-weight: 500; text-align: center;">94.5%</div>',
+              style: {
+                textOutline: 'none'
+              },
+              x: 50,
+              y: 0,
             }
           },
           {
             id: 'App. Submitted',
             color: '#57b9b3',
             dataLabels: {
-              format: '<span style="color:gray">87.2% </span>'
+              format: '<div style="font-size: 25px; color: #777; font-weight: 500; text-align: right;">87.2%</div>',
+              style: {
+                textOutline: 'none'
+              },
+              x: 50,
+              y: 0,
             }
           },
           {
             id: 'App. Complete',
             color: '#57b9b3',
             dataLabels: {
-              format: '<span style="color:gray">89.3% </span>'
+              format: '<div style="font-size: 25px; color: #777; font-weight: 500; text-align: right;">89.3%</div>',
+              style: {
+                textOutline: 'none'
+              },
+              x: 50,
+              y: 0,
             }
           },
           {
             id: 'Admission Offered',
             color: '#57b9b3',
             dataLabels: {
-              format: '<span style="color:gray">97% </span>'
+              format: '<div style="font-size: 25px; color: #777; font-weight: 500; text-align: right;">97%</div>',
+              style: {
+                textOutline: 'none'
+              },
+              x: 50,
+              y: 0,
             }
           },
           {
             id: 'Admission Accepted',
             color: '#57b9b3',
             dataLabels: {
-              format: '<span style="color:gray">92.3% </span>'
+              format: '<div style="font-size: 25px; color: #777; font-weight: 500; text-align: right;">92.3%</div>',
+              style: {
+                textOutline: 'none'
+              },
+              x: 50,
+              y: 0,
             }
           },
           {
@@ -197,9 +223,6 @@ const EnrollmentFunnel: React.FC = () => {
             id: 'Lost',
             color: '#cccccc',
             offsetVertical: 180,
-            dataLabels: {
-              format: '<span style="color:gray">Total Lost: ' + totalLost + '</span>'
-            }
           }
         ],
         data: funnelData.map((item, i) => ({
