@@ -46,34 +46,35 @@ const EnrollmentFunnel: React.FC = () => {
   const options: Highcharts.Options = {
     chart: {
       type: 'sankey',
-      height: '600px',
-      marginTop: 130,
+      height: '600',
+      marginTop: 150,
+      spacingRight: 58,
       events: {
         load() {
           const chart = this;
 
           // Top labels
           const topLabels = [
-            { text: 'Discovery', x: 10, y: 160 },
-            { text: 'App Started', x: 145, y: 160 },
-            { text: 'App Submitted', x: 300, y: 160 },
-            { text: 'App Complete', x: 450, y: 160 },
-            { text: 'Admission Offered', x: 600, y: 160 },
-            { text: 'Admission Accepted', x: 750, y: 160 },
-            { text: 'Enrolled', x: 910, y: 160 },
-            { text: 'Lost', x: 945, y: 320 },
+            { text: 'Discovery', x: 0, y: 120 },
+            { text: 'App Started', x: 150, y: 120 },
+            { text: 'App Submitted', x: 300, y: 120 },
+            { text: 'App Complete', x: 450, y: 120 },
+            { text: 'Admission Offered', x: 600, y: 120 },
+            { text: 'Admission Accepted', x: 750, y: 120 },
+            { text: 'Enrolled', x: 900, y: 120 },
+            { text: 'Lost', x: 900, y: 300 },
           ];
 
           // Bottom values
           const bottomLabels = [
-            { text: '156', x: 10, y: 180 },
-            { text: '91', x: 145, y: 180 },
-            { text: '86', x: 300, y: 180 },
-            { text: '75', x: 450, y: 180 },
-            { text: '67', x: 600, y: 180 },
-            { text: '65', x: 750, y: 180 },
-            { text: '60', x: 910, y: 180 },
-            { text: '94', x: 945, y: 340 },
+            { text: '156', x: 0, y: 140 },
+            { text: '91', x: 150, y: 140 },
+            { text: '86', x: 300, y: 140 },
+            { text: '75', x: 450, y: 140 },
+            { text: '67', x: 600, y: 140 },
+            { text: '65', x: 750, y: 140 },
+            { text: '60', x: 900, y: 140 },
+            { text: '94', x: 900, y: 320 },
           ];
 
           topLabels.forEach(({ text, x, y }) => {
@@ -138,14 +139,17 @@ const EnrollmentFunnel: React.FC = () => {
         keys: ['from', 'to', 'weight'],
         type: 'sankey',
         name: 'Lead Funnel',
-        nodePadding: 10,
-        nodeWidth: 8,
+        nodePadding: -100,
+        nodeWidth: 7,
+        nodeAlignment: 'top',
+        curveFactor: -0.1,
+        nodeDistance: 100,
         colorByPoint: false,
+
         nodes: [
           {
             id: 'Discovery/Dev.',
             color: '#57b9b3',
-            offsetVertical: 0,
             dataLabels: {
               format: 'Discovery/Dev.<br><span style="color:gray">58.3% </span>'
             }
@@ -153,7 +157,6 @@ const EnrollmentFunnel: React.FC = () => {
           {
             id: 'App. Started',
             color: '#57b9b3',
-            offsetVertical: -70,
             dataLabels: {
               format: 'App. Started<br><span style="color:gray">94.5ted% </span>'
             }
@@ -161,7 +164,6 @@ const EnrollmentFunnel: React.FC = () => {
           {
             id: 'App. Submitted',
             color: '#57b9b3',
-            offsetVertical: -80,
             dataLabels: {
               format: 'App. Submitted<br><span style="color:gray">87.2% </span>'
             }
@@ -169,7 +171,6 @@ const EnrollmentFunnel: React.FC = () => {
           {
             id: 'App. Complete',
             color: '#57b9b3',
-            offsetVertical: -90,
             dataLabels: {
               format: 'App. Complete<br><span style="color:gray">89.3% </span>'
             }
@@ -177,7 +178,6 @@ const EnrollmentFunnel: React.FC = () => {
           {
             id: 'Admission Offered',
             color: '#57b9b3',
-            offsetVertical: -100,
             dataLabels: {
               format: 'Admission Offered<br><span style="color:gray">97% </span>'
             }
@@ -185,7 +185,6 @@ const EnrollmentFunnel: React.FC = () => {
           {
             id: 'Admission Accepted',
             color: '#57b9b3',
-            offsetVertical: -100,
             dataLabels: {
               format: 'Admission Accepted<br><span style="color:gray">92.3% </span>'
             }
@@ -193,12 +192,11 @@ const EnrollmentFunnel: React.FC = () => {
           {
             id: 'Enrolled',
             color: '#57b9b3',
-            offsetVertical: 53,
           },
           {
             id: 'Lost',
             color: '#cccccc',
-            offsetVertical: 130,
+            offsetVertical: 180,
             dataLabels: {
               format: 'Lost<br><span style="color:gray">Total Lost: ' + totalLost + '</span>'
             }
