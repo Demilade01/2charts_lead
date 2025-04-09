@@ -1,7 +1,7 @@
 import React from 'react';
 import Highcharts from 'highcharts';
-import Sankey from 'highcharts/modules/sankey';
 import HighchartsReact from 'highcharts-react-official';
+import Sankey from 'highcharts/modules/sankey';
 
 if (typeof Highcharts === 'function') {
   Sankey(Highcharts);

@@ -8,6 +8,12 @@ import type {Config} from 'jest';
 const config: Config = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
+  preset: 'ts-jest',
+  globals: {
+    'ts-jest': {
+      tsconfig: './tsconfig.json', // Specify the path to your tsconfig file here
+    },
+  },
 
   // Stop running tests after `n` failures
   // bail: 0,
@@ -175,7 +181,10 @@ const config: Config = {
   // testRunner: "jest-circus/runner",
 
   // A map from regular expressions to paths to transformers
-  // transform: undefined,
+  transform: {
+    "^.+\\.(ts|tsx)$": "ts-jest",
+    '^.+\\.(js|jsx)$': 'babel-jest', // Ensure babel-jest is used for JS/JSX files
+  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
