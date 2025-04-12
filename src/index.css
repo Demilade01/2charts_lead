@@ -3,3 +3,31 @@
 .reduce-bottom {
   margin-bottom: 500px;
 }
+
+/* App.css */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.lead-funnel-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0 110px;
+  margin-bottom: 20px;
+  height: 500px;
+  width: 1300px; /* Adjust based on your needs */
+}
+
+/* Add responsive behavior */
+@media (max-width: 768px) {
+  .lead-funnel-container {
+    height: auto;
+    min-height: 400px;
+    padding: 16px;
+  }
+}
