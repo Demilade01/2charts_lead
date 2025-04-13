@@ -20,7 +20,7 @@
   padding: 0 110px;
   margin-bottom: 20px;
   height: 500px;
-  width: 1300px; /* Adjust based on your needs */
+  width: 1300px;
 }
 
 /* Add responsive behavior */
@@ -30,4 +30,9 @@
     min-height: 400px;
     padding: 16px;
   }
+}
+
+.overflow-visible {
+  overflow: visible;
+  margin-top: 30px;
 }

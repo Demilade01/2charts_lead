@@ -289,7 +289,6 @@ export default function LeadFunnelChart({
           enabled: true,
           align: "left",
           verticalAlign: "top",
-
           style: {
             fontSize: "10px",
             fontWeight: "normal",
